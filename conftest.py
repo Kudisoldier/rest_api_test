@@ -16,4 +16,3 @@ def temp_book(client):
     book_response = client.add_book(*utils.random_book())
     yield book_response.json['book']
     client.delete_book(book_response.json['book']['id'])
-
