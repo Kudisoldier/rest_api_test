@@ -1,0 +1,37 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>pytest /code --alluredir ${WORKSPACE}/allure-results</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <ru.yandex.qatools.allure.jenkins.AllureReportPublisher plugin="allure-jenkins-plugin@2.30.3">
+      <configPath></configPath>
+      <jdk></jdk>
+      <properties/>
+      <results>
+        <ru.yandex.qatools.allure.jenkins.config.ResultsConfig>
+          <path>allure-results</path>
+        </ru.yandex.qatools.allure.jenkins.config.ResultsConfig>
+      </results>
+      <reportBuildPolicy>ALWAYS</reportBuildPolicy>
+      <includeProperties>false</includeProperties>
+      <disabled>false</disabled>
+      <report>allure-report</report>
+    </ru.yandex.qatools.allure.jenkins.AllureReportPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

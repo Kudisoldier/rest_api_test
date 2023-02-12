@@ -1,0 +1,33 @@
+Started by user [8mha:////4K/OHdAn9vapfRhDztv+0ir95MIxdVgKrfxDBxgE6I7FAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Running as SYSTEM
+Building in workspace /var/jenkins_home/jobs/rest_api/workspace
+[workspace] $ /bin/sh -xe /tmp/jenkins16237232387495830300.sh
++ pytest code --alluredir /var/jenkins_home/jobs/rest_api/workspace/target/allure-results
+ERROR: file or directory not found: code
+
+============================= test session starts ==============================
+platform linux -- Python 3.9.2, pytest-7.2.1, pluggy-1.0.0
+rootdir: /var/jenkins_home/jobs/rest_api/workspace
+plugins: Faker-16.8.1, allure-pytest-2.12.0
+collected 0 items
+
+============================ no tests ran in 0.07s =============================
+Build step 'Execute shell' marked build as failure
+ERROR: Build step failed with exception
+ru.yandex.qatools.allure.jenkins.exception.AllurePluginException: Can not find any allure commandline installation.
+	at ru.yandex.qatools.allure.jenkins.AllureReportPublisher.getCommandline(AllureReportPublisher.java:349)
+	at ru.yandex.qatools.allure.jenkins.AllureReportPublisher.generateReport(AllureReportPublisher.java:303)
+	at ru.yandex.qatools.allure.jenkins.AllureReportPublisher.perform(AllureReportPublisher.java:231)
+	at jenkins.tasks.SimpleBuildStep.perform(SimpleBuildStep.java:123)
+	at hudson.tasks.BuildStepCompatibilityLayer.perform(BuildStepCompatibilityLayer.java:80)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:818)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.performAllBuildSteps(AbstractBuild.java:767)
+	at hudson.model.Build$BuildExecution.post2(Build.java:179)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.post(AbstractBuild.java:711)
+	at hudson.model.Run.execute(Run.java:1925)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:44)
+	at hudson.model.ResourceController.execute(ResourceController.java:107)
+	at hudson.model.Executor.run(Executor.java:449)
+Build step 'Allure Report' marked build as failure
+Finished: FAILURE

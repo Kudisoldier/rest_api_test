@@ -1,0 +1,113 @@
+Started by user [8mha:////4K/OHdAn9vapfRhDztv+0ir95MIxdVgKrfxDBxgE6I7FAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Running as SYSTEM
+Building in workspace /var/jenkins_home/jobs/rest_api/workspace
+[workspace] $ /bin/sh -xe /tmp/jenkins9250338374365299772.sh
++ pytest /code --alluredir /var/jenkins_home/jobs/rest_api/workspace/target/allure-results
+============================= test session starts ==============================
+platform linux -- Python 3.9.2, pytest-7.2.1, pluggy-1.0.0
+rootdir: /code, configfile: pytest.ini
+plugins: Faker-16.8.1, allure-pytest-2.12.0
+collected 10 items
+
+../../../../../code/test_API.py F........F                               [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_books_retrieval _____________________________
+
+client = <api.api_client.ApiClient object at 0xffff93c0d970>
+
+    @allure.title("Позитивный тест получения списка книг")
+    @pytest.mark.positive
+    def test_books_retrieval(client):
+        """Проверяем, что можно получить список книг и они соответствуют модели данных"""
+        books_response = client.get_books()
+        assert books_response.status_code == 200
+        for elem in books_response.json['books']:
+>           assert Book(**elem)
+
+/code/test_API.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+__pydantic_self__ = Book()
+data = {'author': False, 'id': 6, 'isElectronicBook': 2, 'name': 'asd', ...}
+values = {'author': 'False', 'id': 6, 'name': 'asd'}
+fields_set = {'author', 'id', 'isElectronicBook', 'name', 'year'}
+validation_error = ValidationError(model='Book', errors=[{'loc': ('isElectronicBook',), 'msg': 'value could not be parsed to a boolean', 'type': 'type_error.bool'}, {'loc': ('year',), 'msg': 'value is not a valid integer', 'type': 'type_error.integer'}])
+
+    def __init__(__pydantic_self__, **data: Any) -> None:
+        """
+        Create a new model by parsing and validating input data from keyword arguments.
+    
+        Raises ValidationError if the input data cannot be parsed to form a valid model.
+        """
+        # Uses something other than `self` the first arg to allow "self" as a settable attribute
+        values, fields_set, validation_error = validate_model(__pydantic_self__.__class__, data)
+        if validation_error:
+>           raise validation_error
+E           pydantic.error_wrappers.ValidationError: 2 validation errors for Book
+E           isElectronicBook
+E             value could not be parsed to a boolean (type=type_error.bool)
+E           year
+E             value is not a valid integer (type=type_error.integer)
+
+/usr/local/lib/python3.9/dist-packages/pydantic/main.py:342: ValidationError
+__________________ test_create_with_invalid_data[book_data2] ___________________
+
+client = <api.api_client.ApiClient object at 0xffff961c6850>
+book_data = ('asd', False, 2, 'asd')
+
+    @pytest.mark.negative
+    @pytest.mark.parametrize("book_data", [(2, 'asd'), (2, 2, 2, "asd"), ('asd', False, 2, "asd")])
+    def test_create_with_invalid_data(client, book_data):
+        """Проверяем, что нельзя создать книгу с некорректными данными, нарушиющих типы"""
+        book_response = client.add_book(*book_data)
+>       assert book_response.status_code == 400
+E       assert 201 == 400
+E        +  where 201 = ApiResponse(json={'book': {'author': False, 'id': 10, 'isElectronicBook': 2, 'name': 'asd', 'year': 'asd'}}, text='{"b...lse,"id":10,"isElectronicBook":2,"name":"asd","year":"asd"}}\n', status_code=201, url='http://rest_api:5000/api/books').status_code
+
+/code/test_API.py:96: AssertionError
+=============================== warnings summary ===============================
+../../../../../usr/local/lib/python3.9/dist-packages/_pytest/cacheprovider.py:433
+  /usr/local/lib/python3.9/dist-packages/_pytest/cacheprovider.py:433: PytestCacheWarning: cache could not write path /code/.pytest_cache/v/cache/nodeids
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+../../../../../usr/local/lib/python3.9/dist-packages/_pytest/cacheprovider.py:387
+  /usr/local/lib/python3.9/dist-packages/_pytest/cacheprovider.py:387: PytestCacheWarning: cache could not write path /code/.pytest_cache/v/cache/lastfailed
+    config.cache.set("cache/lastfailed", self.lastfailed)
+
+../../../../../usr/local/lib/python3.9/dist-packages/_pytest/stepwise.py:56
+  /usr/local/lib/python3.9/dist-packages/_pytest/stepwise.py:56: PytestCacheWarning: cache could not write path /code/.pytest_cache/v/cache/stepwise
+    session.config.cache.set(STEPWISE_CACHE_DIR, [])
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../../../../../code/test_API.py::test_books_retrieval - pydantic.error_wrappers.ValidationError: 2 validation errors for Book
+isElectronicBook
+  value could not be parsed to a boolean (type=type_error.bool)
+year
+  value is not a valid integer (type=type_error.integer)
+FAILED ../../../../../code/test_API.py::test_create_with_invalid_data[book_data2] - assert 201 == 400
+ +  where 201 = ApiResponse(json={'book': {'author': False, 'id': 10, 'isElectronicBook': 2, 'name': 'asd', 'year': 'asd'}}, text='{"b...lse,"id":10,"isElectronicBook":2,"name":"asd","year":"asd"}}\n', status_code=201, url='http://rest_api:5000/api/books').status_code
+=================== 2 failed, 8 passed, 3 warnings in 0.42s ====================
+Build step 'Execute shell' marked build as failure
+ERROR: Step ‘Allure Report’ aborted due to exception: 
+java.io.IOException: Can't find allure commandline <null>
+	at ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation$GetMajorVersion.call(AllureCommandlineInstallation.java:74)
+	at ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation$GetMajorVersion.call(AllureCommandlineInstallation.java:65)
+	at hudson.remoting.LocalChannel.call(LocalChannel.java:47)
+	at ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation.getMajorVersion(AllureCommandlineInstallation.java:63)
+	at ru.yandex.qatools.allure.jenkins.ReportBuilder.build(ReportBuilder.java:52)
+	at ru.yandex.qatools.allure.jenkins.AllureReportPublisher.generateReport(AllureReportPublisher.java:312)
+	at ru.yandex.qatools.allure.jenkins.AllureReportPublisher.perform(AllureReportPublisher.java:231)
+	at jenkins.tasks.SimpleBuildStep.perform(SimpleBuildStep.java:123)
+	at hudson.tasks.BuildStepCompatibilityLayer.perform(BuildStepCompatibilityLayer.java:80)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:818)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.performAllBuildSteps(AbstractBuild.java:767)
+	at hudson.model.Build$BuildExecution.post2(Build.java:179)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.post(AbstractBuild.java:711)
+	at hudson.model.Run.execute(Run.java:1925)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:44)
+	at hudson.model.ResourceController.execute(ResourceController.java:107)
+	at hudson.model.Executor.run(Executor.java:449)
+Finished: FAILURE
