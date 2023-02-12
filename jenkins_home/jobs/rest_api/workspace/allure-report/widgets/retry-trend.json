@@ -1,1 +1,1 @@
-[{"buildOrder":22,"reportUrl":"nulljob/rest_api/22/allure","reportName":"AllureReport","data":{"run":10,"retry":10}},{"buildOrder":21,"reportUrl":"nulljob/rest_api/21/allure","reportName":"AllureReport","data":{"run":10,"retry":0}}]
+[{"buildOrder":23,"reportUrl":"nulljob/rest_api/23/allure","reportName":"AllureReport","data":{"run":10,"retry":20}},{"buildOrder":22,"reportUrl":"nulljob/rest_api/22/allure","reportName":"AllureReport","data":{"run":10,"retry":10}},{"buildOrder":21,"reportUrl":"nulljob/rest_api/21/allure","reportName":"AllureReport","data":{"run":10,"retry":0}}]
