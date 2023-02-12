@@ -1,10 +1,7 @@
 import pytest
 import allure
 from api.api_client import ApiClient
-from faker import Faker
-
-
-fake = Faker()
+import utils
 
 
 @allure.title("Api client init")
@@ -16,7 +13,7 @@ def client():
 
 @pytest.fixture()
 def temp_book(client):
-    book_response = client.add_book(fake.pystr(), fake.name(), fake.pybool(), fake.pyint(min_value=0, max_value=3000))
+    book_response = client.add_book(*utils.random_book())
     yield book_response.json['book']
     client.delete_book(book_response.json['book']['id'])
 
