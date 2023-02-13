@@ -5,6 +5,7 @@
 
 Установка:  
 Клонируем репозиторий  
+Скачиваем докер образы  
 Вызываем команду docker load -i rest_api_book_lib_docker.tar  
 Вызываем команду docker load -i jenkins_with_autotests.tar  
 
